@@ -1,5 +1,5 @@
 // -----------------------------
-// å‡ºå¸­ãƒ‡ãƒ¼ã‚¿é€ä¿¡ï¼ˆGitHubï¼‰
+// oÈƒf[ƒ^‘—MiGitHubj
 // -----------------------------
 async function sendAttendance(studentId) {
 
@@ -26,14 +26,14 @@ async function sendAttendance(studentId) {
 
         if (response.ok) {
             document.getElementById("status").textContent =
-                `é€ä¿¡æˆåŠŸï¼ˆGitHubï¼‰: ${studentId}`;
+                `‘—M¬Œ÷iGitHubj: ${studentId}`;
         } else {
             document.getElementById("status").textContent =
-                `GitHubé€ä¿¡å¤±æ•—: ${response.status}`;
+                `GitHub‘—M¸”s: ${response.status}`;
         }
 
     } catch (error) {
         document.getElementById("status").textContent =
-            "GitHubé€ä¿¡ã‚¨ãƒ©ãƒ¼: " + error;
+            "GitHub‘—MƒGƒ‰[: " + error;
     }
 }
