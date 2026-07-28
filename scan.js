@@ -1,5 +1,6 @@
+console.log("scan.js is running");
 // -----------------------------
-// oÈƒf[ƒ^‘—MiGitHubj
+// å‡ºå¸­ãƒ‡ãƒ¼ã‚¿é€ä¿¡ï¼ˆGitHubï¼‰
 // -----------------------------
 async function sendAttendance(studentId) {
 
@@ -26,14 +27,14 @@ async function sendAttendance(studentId) {
 
         if (response.ok) {
             document.getElementById("status").textContent =
-                `‘—M¬Œ÷iGitHubj: ${studentId}`;
+                `é€ä¿¡æˆåŠŸï¼ˆGitHubï¼‰: ${studentId}`;
         } else {
             document.getElementById("status").textContent =
-                `GitHub‘—M¸”s: ${response.status}`;
+                `GitHubé€ä¿¡å¤±æ•—: ${response.status}`;
         }
 
     } catch (error) {
         document.getElementById("status").textContent =
-            "GitHub‘—MƒGƒ‰[: " + error;
+            "GitHubé€ä¿¡ã‚¨ãƒ©ãƒ¼: " + error;
     }
 }
