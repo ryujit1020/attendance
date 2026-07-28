@@ -1,0 +1,23 @@
+name: Save Attendance Log
+
+on:
+  repository_dispatch:
+    types: [attendance]
+
+jobs:
+  save-log:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Append log
+        run: |
+          echo "${{ github.event.client_payload.timestamp }},${{ github.event.client_payload.student_id }}" >> attendance_log.csv
+
+      - name: Commit log
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add attendance_log.csv
+          git commit -m "Add attendance log"
+          git push
