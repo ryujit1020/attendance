@@ -1,63 +1,39 @@
 // -----------------------------
-// BLE ƒXƒLƒƒƒ“ŠJn
-// -----------------------------
-document.getElementById("scanButton").addEventListener("click", async () => {
-    document.getElementById("status").textContent = "ƒXƒLƒƒƒ“’†c";
-
-    try {
-        const device = await navigator.bluetooth.requestDevice({
-            filters: [{ namePrefix: "HU-" }],
-            optionalServices: ["battery_service"]
-        });
-
-        document.getElementById("status").textContent =
-            `ƒfƒoƒCƒXŒŸo: ${device.name}`;
-
-        // ‚±‚±‚Å‚ÍƒfƒoƒCƒX–¼‚©‚ç studentId ‚ğ’Šo‚·‚é—á
-        // —á: "HU-12345" ¨ 12345
-        const studentId = device.name.replace("HU-", "");
-
-        // Moodle ‚É‘—M
-        sendAttendance(studentId);
-
-    } catch (error) {
-        document.getElementById("status").textContent =
-            "ƒGƒ‰[: " + error;
-    }
-});
-
-
-// -----------------------------
-// oÈƒf[ƒ^‘—MiMoodlej
+// å‡ºå¸­ãƒ‡ãƒ¼ã‚¿é€ä¿¡ï¼ˆGitHubï¼‰
 // -----------------------------
 async function sendAttendance(studentId) {
-    const url = "https://YOUR_MOODLE_URL/attendance/submit.php";
 
     const payload = {
-        student_id: studentId,
-        timestamp: Date.now()
+        event_type: "attendance",
+        client_payload: {
+            student_id: studentId,
+            timestamp: new Date().toISOString()
+        }
     };
 
     try {
-        const response = await fetch(url, {
-            method: "POST",
-            credentials: "include",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(payload)
-        });
+        const response = await fetch(
+            "https://api.github.com/repos/ryujit1020/attendance/dispatches",
+            {
+                method: "POST",
+                headers: {
+                    "Accept": "application/vnd.github+json",
+                    "Authorization": "Bearer YOUR_GITHUB_TOKEN"
+                },
+                body: JSON.stringify(payload)
+            }
+        );
 
         if (response.ok) {
             document.getElementById("status").textContent =
-                `‘—M¬Œ÷: ${studentId}`;
+                `é€ä¿¡æˆåŠŸï¼ˆGitHubï¼‰: ${studentId}`;
         } else {
             document.getElementById("status").textContent =
-                `‘—M¸”s: ${response.status}`;
+                `GitHubé€ä¿¡å¤±æ•—: ${response.status}`;
         }
 
     } catch (error) {
         document.getElementById("status").textContent =
-            "‘—MƒGƒ‰[: " + error;
+            "GitHubé€ä¿¡ã‚¨ãƒ©ãƒ¼: " + error;
     }
 }
